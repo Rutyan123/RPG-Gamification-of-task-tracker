@@ -1,0 +1,23 @@
+name: C# Code Format Check
+
+on:
+  pull_request:
+    branches: [ "main" ]
+
+jobs:
+  format-check:
+    name: Check C# Formatting
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+
+      - name: Setup .NET SDK
+        uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: '8.0.x' # Укажите версию .NET, совместимую с вашей версией Unity
+
+      - name: Run dotnet format
+        run: |
+          dotnet format --verify-no-changes --include ./Assets/
